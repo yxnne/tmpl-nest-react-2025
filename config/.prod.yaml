@@ -1,0 +1,11 @@
+TEST_VALUE:
+  name: session
+
+
+MY_SQL:
+  host: "127.0.0.1"
+  port: 3306
+  username: "migrate_sys_pre"
+  password: "123456"
+  database: "migrate_sys_pre"
+

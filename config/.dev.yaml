@@ -1,0 +1,15 @@
+TEST_VALUE:
+  name: cookie
+
+MY_SQL:
+  host: "sh-cynosdbmysql-grp-b715heqa.sql.tencentcdb.com"
+  port: 27038
+  username: "admin"
+  password: "Admin123456"
+  database: "yxnne_test_dev"
+
+
+AUTH:
+  skipAllJwt: true
+
+

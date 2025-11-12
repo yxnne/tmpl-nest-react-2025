@@ -12,6 +12,7 @@ specifiers:
   '@nestjs/passport': ^11.0.5
   '@nestjs/platform-express': ^11.0.1
   '@nestjs/schematics': ^11.0.0
+  '@nestjs/serve-static': ^5.0.4
   '@nestjs/swagger': ^11.2.1
   '@nestjs/testing': ^11.0.1
   '@nestjs/typeorm': ^11.0.0
@@ -69,6 +70,7 @@ dependencies:
   '@nestjs/jwt': 11.0.1_@nestjs+common@11.1.8
   '@nestjs/passport': 11.0.5_agbr3x7jd3rkgwl45kdln5hyzm
   '@nestjs/platform-express': 11.1.8_ntgnsohcvfglbr6ml5j3ahgohy
+  '@nestjs/serve-static': 5.0.4_ntgnsohcvfglbr6ml5j3ahgohy
   '@nestjs/swagger': 11.2.1_yz3rqvyo2sejiij2f4o7u44u6m
   '@nestjs/typeorm': 11.0.0_76qmfrhjsnszhunp4ktxtlqm44
   antd: 5.28.1_lh6yjnbmlemn4t264xkzt2k63q
@@ -1824,6 +1826,27 @@ packages:
     transitivePeerDependencies:
       - chokidar
     dev: true
+
+  /@nestjs/serve-static/5.0.4_ntgnsohcvfglbr6ml5j3ahgohy:
+    resolution: {integrity: sha512-3kO1M9D3vsPyWPFardxIjUYeuolS58PnhCoBTkS7t3BrdZFZCKHnBZ15js+UOzOR2Q6HmD7ssGjLd0DVYVdvOw==}
+    peerDependencies:
+      '@fastify/static': ^8.0.4
+      '@nestjs/common': ^11.0.2
+      '@nestjs/core': ^11.0.2
+      express: ^5.0.1
+      fastify: ^5.2.1
+    peerDependenciesMeta:
+      '@fastify/static':
+        optional: true
+      express:
+        optional: true
+      fastify:
+        optional: true
+    dependencies:
+      '@nestjs/common': 11.1.8_gmgqbpht62p7idvqi3j6hz2c4y
+      '@nestjs/core': 11.1.8_syirnzq6dr4xr2mv5pz5p3oq2q
+      path-to-regexp: 8.3.0
+    dev: false
 
   /@nestjs/swagger/11.2.1_yz3rqvyo2sejiij2f4o7u44u6m:
     resolution: {integrity: sha512-1MS7xf0pzc1mofG53xrrtrurnziafPUHkqzRm4YUVPA/egeiMaSerQBD/feiAeQ2BnX0WiLsTX4HQFO0icvOjQ==}

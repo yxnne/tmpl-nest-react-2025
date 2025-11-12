@@ -1,5 +1,7 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 import { RoleModule } from './role/role.module';
@@ -11,6 +13,14 @@ import { JwtAuthGuard } from './common/modules/auth/jwt-auth.guard';
 
 @Module({
   imports: [
+    /**
+     * 静态服务模块
+     * @reference https://docs.nestjs.com/recipes/serve-static
+     * @reason 以前的方式莫名不能用了: app.useStaticAssets(join(__dirname, '..', 'public'));
+     */
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'public'),
+    }),
     /** 通用模块 */
     // 全局配置，按环境加载 config/.dev.yaml 或 .prod.yaml
     MyCfgModule,

@@ -13,12 +13,27 @@ export class UserService {
 
   async create(dto: CreateUserDto) {
     const passwordHash = await bcrypt.hash(dto.password, 12);
-    const user = this.repo.create({ name: dto.name, email: dto.email, passwordHash });
+    const user = this.repo.create({ name: dto.name, email: dto.email, passwordHash, phone: dto.phone });
     return this.repo.save(user);
   }
 
-  findAll() {
-    return this.repo.find();
+  async findAll(
+    page = 1,
+    pageSize = 15,
+    q?: { id?: number; name?: string; email?: string; roleId?: number; phone?: string },
+  ) {
+    const take = Math.max(1, pageSize);
+    const current = Math.max(1, page);
+    const skip = (current - 1) * take;
+    const qb = this.repo.createQueryBuilder('user');
+    if (q?.id) qb.andWhere('user.id = :id', { id: q.id });
+    if (q?.name) qb.andWhere('user.name LIKE :name', { name: `%${q.name}%` });
+    if (q?.email) qb.andWhere('user.email LIKE :email', { email: `%${q.email}%` });
+    if (q?.roleId) qb.andWhere('user.roleId = :roleId', { roleId: q.roleId });
+    if (q?.phone) qb.andWhere('user.phone LIKE :phone', { phone: `%${q.phone}%` });
+    qb.skip(skip).take(take);
+    const [items, total] = await qb.getManyAndCount();
+    return { items, total, page: current, pageSize: take };
   }
 
   async findOne(id: number) {
@@ -32,6 +47,7 @@ export class UserService {
     if (dto.name !== undefined) user.name = dto.name;
     if (dto.email !== undefined) user.email = dto.email;
     if (dto.password !== undefined) user.passwordHash = await bcrypt.hash(dto.password, 12);
+    if (dto.phone !== undefined) user.phone = dto.phone;
     return this.repo.save(user);
   }
 

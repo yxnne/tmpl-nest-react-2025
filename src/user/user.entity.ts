@@ -14,6 +14,9 @@ export class User {
   @Column({ length: 255, unique: true })
   email: string;
 
+  @Column({ length: 20, nullable: true, unique: true })
+  phone?: string;
+
   @Column({ nullable: true })
   roleId?: number;
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,8 +19,25 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: '获取用户列表' })
-  findAll() {
-    return this.service.findAll();
+  findAll(
+    @Query('page') page?: number,
+    @Query('pageSize') pageSize?: number,
+    @Query('id') id?: number,
+    @Query('name') name?: string,
+    @Query('email') email?: string,
+    @Query('roleId') roleId?: number,
+    @Query('phone') phone?: string,
+  ) {
+    const p = Number(page) || 1;
+    const s = Number(pageSize) || 15;
+    const q = {
+      id: id !== undefined ? Number(id) : undefined,
+      name: name || undefined,
+      email: email || undefined,
+      roleId: roleId !== undefined ? Number(roleId) : undefined,
+      phone: phone || undefined,
+    };
+    return this.service.findAll(p, s, q);
   }
 
   @Get(':id')

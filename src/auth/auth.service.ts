@@ -17,7 +17,7 @@ export class AuthService {
     const user = await this.usersRepo
       .createQueryBuilder('user')
       .addSelect('user.passwordHash')
-      .where('user.email = :username', { username })
+      .where('user.email = :username OR user.name = :username OR user.phone = :username', { username })
       .getOne();
     if (!user || !user.passwordHash) throw new UnauthorizedException('Invalid credentials');
     const ok = await bcrypt.compare(password, user.passwordHash);

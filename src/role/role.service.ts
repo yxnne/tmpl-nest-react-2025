@@ -14,8 +14,17 @@ export class RoleService {
     return this.repo.save(role);
   }
 
-  findAll() {
-    return this.repo.find();
+  async findAll(page = 1, pageSize = 15, q?: { id?: number; name?: string; description?: string }) {
+    const take = Math.max(1, pageSize);
+    const current = Math.max(1, page);
+    const skip = (current - 1) * take;
+    const qb = this.repo.createQueryBuilder('role');
+    if (q?.id) qb.andWhere('role.id = :id', { id: q.id });
+    if (q?.name) qb.andWhere('role.name LIKE :name', { name: `%${q.name}%` });
+    if (q?.description) qb.andWhere('role.description LIKE :description', { description: `%${q.description}%` });
+    qb.skip(skip).take(take);
+    const [items, total] = await qb.getManyAndCount();
+    return { items, total, page: current, pageSize: take };
   }
 
   async findOne(id: number) {
